@@ -1,0 +1,43 @@
+//Analyze 8-bit Only Human and Mice Skin IHC Images
+
+dir=getDirectory("Select the source directory");
+list=getFileList(dir);
+Array.sort(list);
+
+for(i=0;i<list.length;i++){
+	filename=dir+list[i];
+	open(filename);
+	if(endsWith(filename,"tif")){
+		open(filename);
+		setAutoThreshold("Li Dark");
+		//run("Threshold...");
+		run("Measure");
+		run("Convert to Mask");
+		run("Set Measurements...","area mean integrated density area fraction limit display redirect=None decimal=3");
+		
+
+	}
+}
+
+
+
+//Analyze Particles 8-bit Only Human and Mice Skin IHC Images
+dir=getDirectory("Select the source directory");
+list=getFileList(dir);
+Array.sort(list);
+
+for(i=0;i<list.length;i++){
+	filename=dir+list[i];
+	open(filename);
+	if(endsWith(filename,"tif")){
+		open(filename);
+		setAutoThreshold("Default dark");
+		//run("Threshold...");
+		run("Measure");
+		run("Convert to Mask");
+		run("Analyze Particles...", "summarize");
+
+	}
+}
+
+
